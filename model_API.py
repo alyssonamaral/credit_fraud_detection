@@ -16,8 +16,9 @@ def search_ofac():
 
     predictData = []
     predictData.append(inputData)
-    pred = xgb.predict(predictData)
-    retJson = {"Score" : f"{pred}"}
+    pred = xgb.predict_proba(predictData)
+    prob = [x[1] for x in pred]
+    retJson = {"Score" : f"{prob[0]}"}
 
     return jsonify(retJson)
 
